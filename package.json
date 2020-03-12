@@ -36,6 +36,7 @@
     "predocs": "node ./docs/.vuepress/preprocess.js",
     "docs": "vuepress dev docs",
     "docs:build": "node ./docs/.vuepress/preprocess.js && vuepress build docs",
+    "makevsgtypes": "yarn babel packages/vue-styleguidist/src/scripts/schemas/config.ts --out-file packages/vue-styleguidist/lib/scripts/schemas/config.js && node packages/vue-styleguidist/maketypes.js",
     "postinstall": "yarn compile && cd ./packages/vue-cli-plugin-styleguidist && yarn link && cd ../.. && yarn link vue-cli-plugin-styleguidist"
   },
   "license": "MIT",
@@ -178,9 +179,8 @@
       "git add"
     ],
     "packages/vue-styleguidist/src/scripts/schemas/config.ts": [
-      "yarn babel packages/vue-styleguidist/src/scripts/schemas/config.ts --out-file packages/vue-styleguidist/lib/scripts/schemas/config.js",
-      "node ./packages/vue-styleguidist/maketypes.js",
-      "git add ./packages/vue-styleguidist/src/types/StyleGuide.d.ts"
+      "yarn makevsgtypes",
+      "git add ./packages/vue-styleguidist/src/types/StyleGuide.ts"
     ]
   },
   "gitHooks": {

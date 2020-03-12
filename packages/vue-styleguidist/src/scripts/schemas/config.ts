@@ -46,7 +46,7 @@ export default {
 	// `components` is a shortcut for { sections: [{ components }] },
 	// see `sections` below
 	components: {
-		tstype: '() => (string | string[]) | string | string[]',
+		tstype: '(() => string[]) | string | string[]',
 		uitype: 'string',
 		message: 'Components',
 		description:
@@ -299,7 +299,10 @@ https://vue-styleguidist.github.io/Configuration.html#editorconfig `,
 		}
 	},
 	sections: {
-		tstype: 'Section[]',
+		// sections will be different in the loader and browser config
+		// we therfore avoid assigning them a type here so that we can
+		// assign it variably
+		inherit: true,
 		type: 'array',
 		default: [],
 		process: (

@@ -1,14 +1,22 @@
+/**
+ * /!\ WARNING /!\
+ * Do not edit manually.
+ * This file is the compilation of 
+ * Template: packages/vue-styleguidist/templates/StyleGuide.ts.ejs
+ * Config Data: packages/vue-styleguidist/src/scripts/schemas/config.ts
+ */
+
 import React from 'react'
 import WebpackDevServer from 'webpack-dev-server'
 import { ComponentDoc, PropDescriptor } from 'vue-docgen-api'
 import { TransformOptions } from 'buble'
-import { Styles, StyleSheet } from 'jss';
+import { Styles } from 'jss';
 import { Configuration, loader } from 'webpack'
 import * as Rsg from 'react-styleguidist'
-import { RecurssivePartial } from 'react-styleguidist/lib/typings/RecursivePartial'
+import { RecursivePartial } from 'react-styleguidist/lib/typings/RecursivePartial'
 import { ProcessedSection, Section } from './Section'
 import { EXPAND_MODE } from './enums'
-import { Example, ExampleLoader } from './Example'
+import { ExampleLoader } from './Example'
 import { ComponentProps } from './Component'
 
 export interface StyleguidistContext extends loader.LoaderContext {
@@ -16,7 +24,10 @@ export interface StyleguidistContext extends loader.LoaderContext {
 }
 
 export interface BaseStyleguidistConfig 
-    extends Rsg.BaseStyleguidistConfig {
+    extends Omit<
+        Rsg.SanitizedStyleguidistConfig,
+        'sections' | 'propsParser' | 'sortProps' | 'updateDocs'
+    > {
     /**
      * Your application static assets folder, will be accessible as / in the style guide dev server. 
      */
@@ -30,7 +41,7 @@ export interface BaseStyleguidistConfig
     /**
      * Where to find the components. Takes in a String or an Array of glob paths. Comma separated. 
      */
-    components: () => (string | string[]) | string | string[];
+    components: (() => string[]) | string | string[];
     configDir: string;
     context: Record<string, any>;
     contextDependencies: string[];
@@ -143,7 +154,6 @@ export interface BaseStyleguidistConfig
 		url: string,
 		text: string
 	};
-    sections: Section[];
     /**
      * Dev server host name 
      * @default "0.0.0.0" 
@@ -235,14 +245,6 @@ export interface SanitizedStyleguidistConfig extends BaseStyleguidistConfig {
 	sections: Rsg.ConfigSection[];
 }
 
-export interface StyleGuideObject {
-    sections: ProcessedSection[]
-    config: StyleguidistConfig
-    renderRootJsx: React.ReactNode
-    welcomeScreen: any
-    patterns: string[]
-}
-
 /**
  * definition of the config object where everything is optional
  * note that teh default example can be both a string and a boolean but ends
@@ -251,4 +253,12 @@ export interface StyleGuideObject {
 export interface StyleguidistConfig
 	extends RecursivePartial<Omit<SanitizedStyleguidistConfig, 'defaultExample'>> {
 	defaultExample?: string | boolean;
+}
+
+export interface StyleGuideObject {
+    sections: ProcessedSection[]
+    config: StyleguidistConfig
+    renderRootJsx: React.ReactNode
+    welcomeScreen: any
+    patterns: string[]
 }
