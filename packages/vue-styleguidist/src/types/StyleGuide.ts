@@ -4,16 +4,19 @@ import { ComponentDoc, PropDescriptor } from 'vue-docgen-api'
 import { TransformOptions } from 'buble'
 import { Styles, StyleSheet } from 'jss';
 import { Configuration, loader } from 'webpack'
+import * as Rsg from 'react-styleguidist'
+import { RecurssivePartial } from 'react-styleguidist/lib/typings/RecursivePartial'
 import { ProcessedSection, Section } from './Section'
 import { EXPAND_MODE } from './enums'
 import { Example, ExampleLoader } from './Example'
 import { ComponentProps } from './Component'
 
 export interface StyleguidistContext extends loader.LoaderContext {
-_styleguidist: StyleguidistConfig
+    _styleguidist: SanitizedStyleguidistConfig
 }
 
-export interface StyleguidistConfig {
+export interface BaseStyleguidistConfig 
+    extends Rsg.BaseStyleguidistConfig {
     /**
      * Your application static assets folder, will be accessible as / in the style guide dev server. 
      */
@@ -228,10 +231,24 @@ export interface StyleguidistConfig {
     webpackConfig: Configuration;
 }
 
+export interface SanitizedStyleguidistConfig extends BaseStyleguidistConfig {
+	sections: Rsg.ConfigSection[];
+}
+
 export interface StyleGuideObject {
-sections: ProcessedSection[]
-config: StyleguidistConfig
-renderRootJsx: React.ReactNode
-welcomeScreen: any
-patterns: string[]
+    sections: ProcessedSection[]
+    config: StyleguidistConfig
+    renderRootJsx: React.ReactNode
+    welcomeScreen: any
+    patterns: string[]
+}
+
+/**
+ * definition of the config object where everything is optional
+ * note that teh default example can be both a string and a boolean but ends
+ * up only being a string after sanitizing
+ */
+export interface StyleguidistConfig
+	extends RecursivePartial<Omit<SanitizedStyleguidistConfig, 'defaultExample'>> {
+	defaultExample?: string | boolean;
 }

@@ -8,7 +8,7 @@ import loggerMaker from 'glogg'
 import getUserPackageJson from 'react-styleguidist/lib/scripts/utils/getUserPackageJson'
 import StyleguidistError from 'react-styleguidist/lib/scripts/utils/error'
 import fileExistsCaseInsensitive from 'react-styleguidist/lib/scripts/utils/findFileCaseInsensitive'
-import { Section } from '../../types/Section'
+import * as Rsg from 'react-styleguidist'
 import { Example } from '../../types/Example'
 import { StyleguidistConfig } from '../../types/StyleGuide'
 import findUserWebpackConfig from '../utils/findUserWebpackConfig'
@@ -302,7 +302,10 @@ https://vue-styleguidist.github.io/Configuration.html#editorconfig `,
 		tstype: 'Section[]',
 		type: 'array',
 		default: [],
-		process: (value: Section[] | undefined, config: StyleguidistConfig): Section[] => {
+		process: (
+			value: Rsg.ConfigSection[] | undefined,
+			config: StyleguidistConfig
+		): Rsg.ConfigSection[] => {
 			if (!value) {
 				// If root `components` isn't empty, make it a first section
 				// If `components` and `sections` weren’t specified, use default pattern
