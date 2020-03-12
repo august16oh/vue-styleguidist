@@ -1,4 +1,4 @@
-import { EXPAND_MODE } from './enums'
+import * as Rsg from 'react-styleguidist'
 import { Component } from './Component'
 
 interface BaseSection {
@@ -10,8 +10,8 @@ interface BaseSection {
 	content?: string
 	sectionDepth?: number
 	description?: string
-	exampleMode?: EXPAND_MODE
-	usageMode?: EXPAND_MODE
+	exampleMode?: Rsg.EXPAND_MODE
+	usageMode?: Rsg.EXPAND_MODE
 	slug?: string
 	filepath?: string
 	href?: string

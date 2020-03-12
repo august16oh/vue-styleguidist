@@ -139,7 +139,7 @@ https://vue-styleguidist.github.io/Configuration.html#editorconfig `,
 		}
 	},
 	exampleMode: {
-		tstype: 'EXPAND_MODE',
+		tstype: 'Rsg.EXPAND_MODE',
 		message: 'Example Mode',
 		description: 'Defines the initial state of the props and methods tab',
 		list: MODES,
@@ -470,7 +470,7 @@ https://vue-styleguidist.github.io/Configuration.html#editorconfig `,
 		removed: `Use "webpackConfig" option instead:\n${consts.DOCS_WEBPACK}`
 	},
 	usageMode: {
-		tstype: 'EXPAND_MODE',
+		tstype: 'Rsg.EXPAND_MODE',
 		message: 'Usage Mode',
 		description: 'Defines the initial state of the props and methods tab',
 		list: MODES,
@@ -481,7 +481,7 @@ https://vue-styleguidist.github.io/Configuration.html#editorconfig `,
 		default: 'collapse'
 	},
 	tocMode: {
-		tstype: 'EXPAND_MODE',
+		tstype: 'Rsg.EXPAND_MODE',
 		message: 'Table Of Contents Collapsed mode',
 		description:
 			'If set to collapse, the sidebar sections are collapsed by default. Handy when dealing with big Components bases',
