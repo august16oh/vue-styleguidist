@@ -9,7 +9,6 @@ import getUserPackageJson from 'react-styleguidist/lib/scripts/utils/getUserPack
 import StyleguidistError from 'react-styleguidist/lib/scripts/utils/error'
 import fileExistsCaseInsensitive from 'react-styleguidist/lib/scripts/utils/findFileCaseInsensitive'
 import * as Rsg from 'react-styleguidist'
-import { Example } from '../../types/Example'
 import { StyleguidistConfig } from '../../types/StyleGuide'
 import findUserWebpackConfig from '../utils/findUserWebpackConfig'
 import consts from '../consts'
@@ -448,13 +447,18 @@ https://vue-styleguidist.github.io/Configuration.html#editorconfig `,
 		example: 'My Style Guide'
 	},
 	updateDocs: {
-		tstype: '(doc: ComponentProps, file: string) => ComponentProps',
+		tstype: '(doc: LoaderComponentProps, file: string) => LoaderComponentProps',
 		type: 'function'
 	},
 	updateExample: {
-		tstype: '(props: ExampleLoader, ressourcePath: string) => ExampleLoader',
+		tstype: [
+			'(',
+			"		props: Pick<Rsg.CodeExample, 'content' | 'lang' | 'settings'>,",
+			'		ressourcePath: string',
+			'	) => Rsg.CodeExample'
+		].join('\n'),
 		type: 'function',
-		default: (props: Example) => {
+		default: (props: Pick<Rsg.CodeExample, 'content' | 'lang' | 'settings'>) => {
 			if (props.lang === 'example') {
 				props.lang = 'js'
 				logger.warn(

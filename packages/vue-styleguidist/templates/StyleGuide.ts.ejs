@@ -15,8 +15,7 @@ import { Configuration, loader } from 'webpack'
 import * as Rsg from 'react-styleguidist'
 import { RecursivePartial } from 'react-styleguidist/lib/typings/RecursivePartial'
 import { ProcessedSection } from './Section'
-import { ExampleLoader } from './Example'
-import { ComponentProps } from './Component'
+import { LoaderComponentProps } from './Component'
 
 export interface StyleguidistContext extends loader.LoaderContext {
     _styleguidist: SanitizedStyleguidistConfig

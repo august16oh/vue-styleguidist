@@ -1,13 +1,6 @@
-/* eslint-disable import/prefer-default-export */
+import * as Rsg from 'react-styleguidist'
 
-export interface Example {
-	type: 'code' | 'text'
-	lang: string
+export interface CodeExample extends Omit<Rsg.CodeExample, 'content'> {
 	content: { raw: string; compiled: string } | string
-	settings: { [key: string]: string }
 	compiled?: string
-}
-
-export interface ExampleLoader extends Example {
-	content: string
 }

@@ -1,3 +1,6 @@
+import 'react-styleguidist/lib/typings/dependencies/react-docgen'
+
+import { VueConstructor } from 'vue'
 import {
 	PropDescriptor,
 	MethodDescriptor,
@@ -5,10 +8,10 @@ import {
 	EventDescriptor,
 	BlockTag
 } from 'vue-docgen-api'
-import * as b from '@babel/types'
-import { Example } from './Example'
+import * as Rsg from 'react-styleguidist'
+import { CodeExample } from './Example'
 
-export interface ComponentProps {
+interface BaseComponentProps {
 	displayName: string
 	description?: string
 	props?: PropDescriptor[]
@@ -21,18 +24,23 @@ export interface ComponentProps {
 	docsBlocks?: string[]
 	visibleName?: string
 	examplesFile?: string
-	examples?: { require: string; toAST: () => b.Node } | Example[] | null
-	example?: Example[][]
 }
 
-export interface Component {
-	visibleName?: string
-	filepath?: string
-	slug?: string
-	pathLine?: string
-	hasExamples?: boolean
-	name?: string
+export interface LoaderComponentProps extends BaseComponentProps {
+	examples?: Rsg.RequireItResult | null
+	example?: Rsg.RequireItResult | Rsg.RequireItResult[] | null
+}
+
+export interface LoaderComponent extends Omit<Rsg.LoaderComponent, 'props'> {
+	props: LoaderComponentProps
+}
+
+export interface ComponentProps extends BaseComponentProps {
+	examples?: (CodeExample | Rsg.MarkdownExample)[]
+	example?: (CodeExample | Rsg.MarkdownExample)[] | (CodeExample | Rsg.MarkdownExample)[][]
+}
+
+export interface Component extends Omit<Rsg.Component, 'props' | 'module'> {
 	props: ComponentProps
-	module: { require: string; toAST: () => any; default?: any } | any
-	metadata: any
+	module: { default: VueConstructor } | VueConstructor
 }

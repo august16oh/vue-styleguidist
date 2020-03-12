@@ -15,8 +15,7 @@ import { Configuration, loader } from 'webpack'
 import * as Rsg from 'react-styleguidist'
 import { RecursivePartial } from 'react-styleguidist/lib/typings/RecursivePartial'
 import { ProcessedSection } from './Section'
-import { ExampleLoader } from './Example'
-import { ComponentProps } from './Component'
+import { LoaderComponentProps } from './Component'
 
 export interface StyleguidistContext extends loader.LoaderContext {
 	_styleguidist: SanitizedStyleguidistConfig
@@ -207,8 +206,11 @@ export interface BaseStyleguidistConfig
 	 * Style guide title
 	 */
 	title: string
-	updateDocs: (doc: ComponentProps, file: string) => ComponentProps
-	updateExample: (props: ExampleLoader, ressourcePath: string) => ExampleLoader
+	updateDocs: (doc: LoaderComponentProps, file: string) => LoaderComponentProps
+	updateExample: (
+		props: Pick<Rsg.CodeExample, 'content' | 'lang' | 'settings'>,
+		ressourcePath: string
+	) => Rsg.CodeExample
 	updateWebpackConfig: any
 	/**
 	 * Defines the initial state of the props and methods tab

@@ -1,31 +1,11 @@
 import * as Rsg from 'react-styleguidist'
 import { Component } from './Component'
+import { CodeExample } from './Example'
 
-interface BaseSection {
-	name?: string
-	visibleName?: string
-	components?: any
-	sections?: BaseSection[]
-	ignore?: string | string[]
-	content?: string
-	sectionDepth?: number
-	description?: string
-	exampleMode?: Rsg.EXPAND_MODE
-	usageMode?: Rsg.EXPAND_MODE
-	slug?: string
-	filepath?: string
-	href?: string
-	external?: string
-}
-
-export interface Section extends BaseSection {
-	components?: (() => string | string[]) | string | string[]
-	sections?: Section[]
-}
-
-export interface ProcessedSection extends BaseSection {
+export interface ProcessedSection extends Rsg.BaseSection {
 	name: string
 	components?: Component[]
-	content: string
+	filepath?: string
+	content?: (CodeExample | Rsg.MarkdownExample)[]
 	sections: ProcessedSection[]
 }
